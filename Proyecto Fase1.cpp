@@ -10,13 +10,6 @@ struct traducir{
     char traduccion[20];
     char funcionalidad[100];
 };
-int main(){
-  //Crear();
-    leer();
-    //actualizar();
-    borrar();
-
-}
 void Crear(){
     FILE*archivo=fopen(nombre_archivo,"a+b");
     traducir Traducir;
