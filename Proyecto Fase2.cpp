@@ -1,67 +1,72 @@
 #include <iostream>
 #include <sstream>
-#include <regex>
+#include <stdio.h>
 #include "Proyecto Fase1.cpp"
+#include <cstring>
 
-// Función auxiliar para traducir una palabra
-string traducirPalabra(const string& palabra) {
-    //toda la parte de la logica para traducir la palabra
-    return palabra;
-}
+string reemplazar(const string& linea) {
+    char palabra[20];
+    char traduccion[20];
+    string resultado = linea;
+    FILE* archivo = fopen(nombre_archivo, "rb");
+    if (!archivo) {
+        archivo = fopen(nombre_archivo, "w+b");
+    }
+    traducir Traducir;
+    fread(&Traducir, sizeof(traducir), 1, archivo);
+    do {
+        //Copiar cadena
+        strncpy(palabra, Traducir.palabra, sizeof(palabra));
+        strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
 
-// Función para traducir una línea de código
-string traducirLinea(const string& linea) {
-    // Expresión regular para buscar llaves
-    regex re("\\{\\s*\\}");
+        //tamaño cadena
+        size_t tamano = strlen(palabra);
+        size_t tamano_tra = strlen(traduccion);
+        //char a string
+        string mystring(palabra, tamano);
+        string mystring2(traduccion, tamano_tra);
 
-    // Buscar llaves en la línea
-    sregex_iterator it(linea.begin(), linea.end(), re);
-    sregex_iterator end;
-
-    // Si se encuentra una llave, traducir la línea
-    if (it != end) {
-        // Obtener la palabra anterior a la llave
-        string palabraAnterior = regex_replace(
-            linea.substr(0, it->position()), regex("\\s*$"), "");
-
-        // Si la palabra anterior es un identificador de estructura de control,
-        // reemplazar la llave por el nombre de la estructura concatenado con las llaves
-        if (palabraAnterior == "if" || palabraAnterior == "else" ||
-            palabraAnterior == "while" || palabraAnterior == "do" ||
-            palabraAnterior == "for" || palabraAnterior == "switch") {
-            return traducirPalabra(palabraAnterior) + " {" + traducirPalabra(palabraAnterior) + "}";
+        //traducir palabras
+        size_t posicion = resultado.find(palabra);
+        while (posicion != string::npos) {
+            resultado.replace(posicion, tamano, traduccion);
+            posicion = resultado.find(palabra, posicion + tamano);
         }
 
-        // Si la palabra anterior no es un identificador de estructura de control,
-        // devolver la línea sin traducir
-        else {
-            return linea;
+        //cambiar llaves por inicio y fin
+        posicion = resultado.find("{");
+        while (posicion != string::npos) {
+            resultado.replace(posicion, 1, " inicio");
+            posicion = resultado.find("{", posicion + 6);
         }
-    }
-
-    // Si no se encuentra una llave, devolver la línea sin traducir
-    else {
-        return linea;
-    }
+        posicion = resultado.find("}");
+        while (posicion != string::npos) {
+            resultado.replace(posicion, 1, " fin");
+            posicion = resultado.find("}", posicion + 3);
+        }
+        fread(&Traducir, sizeof(traducir), 1, archivo);
+    } while (!feof(archivo));
+    fclose(archivo);
+    return resultado;
 }
-
 int main() {
+    //Crear();
     string texto;
-    ostringstream buffer;
-    cout << "Ingresa tu texto multilínea y presiona ENTER seguido de CTRL + D para finalizar:" << endl;
-    while (getline(cin, texto)) {
-        // Traducir cada línea del texto y agregarla al buffer
-        buffer << traducirLinea(texto) << endl;
+    string linea;
+    fflush(stdin);
+    cout << "Ingresa tu texto multilinea y presiona ENTER. Para terminar, ingresa una linea vacia:" << endl;
+
+    // Leer cada línea y agregarla al texto
+    while (getline(cin, linea)) {
+        if (linea.empty()) {
+            break;
+        }
+        texto += linea + "\n";
     }
-    // Imprimir toda la cadena ingresada
-    cout << "Texto traducido:" << endl << buffer.str();
-    return 0;
+
+    // Imprimir el texto
+    cout << "Texto ingresado:\n" << texto << endl;
+    string texto_reemplazado;
+    texto_reemplazado = reemplazar(texto);
+    cout << texto_reemplazado << endl;
 }
-
-/*Crear un programa que me permita ingresar texto multilíneas y me
-permita traducir una porción de código escrito en c++ , tomando como
-base las palabras que definimos en la Fase I, con la salvedad que las llaves
-{} serán tomadas como inicio y fin concatenadas con el nombre de su
-respectiva estructura de control, a excepción de que si fuera un método
-y/o función en ese caso no se traducirá las llaves.*/
-
