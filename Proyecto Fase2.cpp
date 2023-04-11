@@ -33,37 +33,15 @@ string reemplazar(const string& linea) {
             posicion = resultado.find(palabra, posicion + tamano);
         }
 
-       //cambiar llaves por inicio y fin
+		//cambiar llaves por inicio y fin
         posicion = resultado.find("{");
         while (posicion != string::npos) {
-            // Verificar si la llave está dentro de una función o método
-            bool en_funcion = false;
-            size_t pos_funcion = resultado.rfind("(", posicion);
-            size_t pos_parentesis = resultado.find(")", pos_funcion);
-            if (pos_funcion != string::npos && pos_parentesis != string::npos && pos_parentesis > pos_funcion) {
-                en_funcion = true;
-            }
-
-            // Si la llave no está dentro de una función o método, se reemplaza
-            if (!en_funcion) {
-                resultado.replace(posicion, 1, " inicio");
-            }
+            resultado.replace(posicion, 1, " inicio");
             posicion = resultado.find("{", posicion + 6);
         }
         posicion = resultado.find("}");
         while (posicion != string::npos) {
-            // Verificar si la llave está dentro de una función o método
-            bool en_funcion = false;
-            size_t pos_funcion = resultado.rfind("(", posicion);
-            size_t pos_parentesis = resultado.find(")", pos_funcion);
-            if (pos_funcion != string::npos && pos_parentesis != string::npos && pos_parentesis > pos_funcion) {
-                en_funcion = true;
-            }
-
-            // Si la llave no está dentro de una función o método, se reemplaza
-            if (!en_funcion) {
-                resultado.replace(posicion, 1, " fin");
-            }
+            resultado.replace(posicion, 1, " fin");
             posicion = resultado.find("}", posicion + 3);
         }
         fread(&Traducir, sizeof(traducir), 1, archivo);

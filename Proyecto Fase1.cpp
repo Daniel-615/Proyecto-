@@ -29,13 +29,13 @@ void Crear(){
         fwrite(&Traducir,sizeof(traducir),1,archivo);
         cout<<"Desea ingresar otra palabra(S/N)";
         cin>>res;
-        system("cls");
+        //system("cls");
     }while(res=='s' || res=='S');
     leer();
     fclose(archivo);
 };
 void leer(){
-    system("cls");
+    //system("cls");
      FILE*archivo=fopen(nombre_archivo,"rb");
      if(!archivo){
            FILE*archivo=fopen(nombre_archivo,"w+b");
