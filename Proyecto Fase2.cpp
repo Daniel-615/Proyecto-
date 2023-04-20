@@ -18,26 +18,29 @@ string reemplazar(const string& linea) {
   fread(&Traducir, sizeof(traducir), 1, archivo);
 
   do {
-    //primero las llaves para que no de ningun error
+        //primero las llaves para que no de ningun error
         size_t posicion;
-        const string palabras_control[] = {"for", "do", "while", "if", "switch", "else"}; // agregar aquí todas las estructuras de control
-        for (const auto& palabra : palabras_control) {
+        string palabras_control[] = {"for","while", "if", "switch", "else"}; // agregar aquí todas las estructuras de control
+        //const string palabras_control[]= {};
+        for (auto& palabra : palabras_control) {
         // buscar la palabra de control
         posicion = resultado.find(palabra);
         while (posicion != string::npos) {
             // reemplazar la llave de apertura
             size_t pos_llave_ap = resultado.find("{", posicion);
             if (pos_llave_ap != string::npos) {
-                resultado.replace(pos_llave_ap, 1, " Inicio");
+                resultado.replace(pos_llave_ap, 1, " Inicio "+palabra);
                 pos_llave_ap += strlen("Inicio");
             }
             // reemplazar la llave de cierre
             size_t pos_llave_ci = resultado.find("}", pos_llave_ap);
             if (pos_llave_ci != string::npos) {
-                resultado.replace(pos_llave_ci, 1, " Fin\n");
-                pos_llave_ci += strlen("Fin\n");
+                resultado.replace(pos_llave_ci, 1, " Fin "+palabra+"\n");
+                pos_llave_ci += strlen("Fin");
             }
             posicion = resultado.find(palabra, pos_llave_ci);
+            palabra="";
+
         }
     }
 
@@ -91,6 +94,9 @@ int main() {
   cout << "Texto ingresado:\n" << texto << endl;
   string texto_reemplazado;
   texto_reemplazado = reemplazar(texto);
+
+  cout<<"______________"<<endl;
+  cout << "\n\nTraduccion:\n" <<endl;
   cout << texto_reemplazado << endl;
 
   return 0;
