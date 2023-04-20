@@ -4,21 +4,47 @@
 #include "Proyecto Fase1.cpp"
 #include <cstring>
 
-string reemplazar(const string & linea) {
+using namespace std;
+
+string reemplazar(const string& linea) {
   char palabra[20];
   char traduccion[20];
   string resultado = linea;
-  FILE * archivo = fopen(nombre_archivo, "rb");
+  FILE* archivo = fopen(nombre_archivo, "rb");
   if (!archivo) {
     archivo = fopen(nombre_archivo, "w+b");
   }
   traducir Traducir;
-  fread( & Traducir, sizeof(traducir), 1, archivo);
+  fread(&Traducir, sizeof(traducir), 1, archivo);
+
   do {
+    //primero las llaves para que no de ningun error
+        size_t posicion;
+        const string palabras_control[] = {"for", "do", "while", "if", "switch", "else"}; // agregar aquí todas las estructuras de control
+        for (const auto& palabra : palabras_control) {
+        // buscar la palabra de control
+        posicion = resultado.find(palabra);
+        while (posicion != string::npos) {
+            // reemplazar la llave de apertura
+            size_t pos_llave_ap = resultado.find("{", posicion);
+            if (pos_llave_ap != string::npos) {
+                resultado.replace(pos_llave_ap, 1, " Inicio");
+                pos_llave_ap += strlen("Inicio");
+            }
+            // reemplazar la llave de cierre
+            size_t pos_llave_ci = resultado.find("}", pos_llave_ap);
+            if (pos_llave_ci != string::npos) {
+                resultado.replace(pos_llave_ci, 1, " Fin\n");
+                pos_llave_ci += strlen("Fin\n");
+            }
+            posicion = resultado.find(palabra, pos_llave_ci);
+        }
+    }
+
     //Copiar cadena
     strncpy(palabra, Traducir.palabra, sizeof(palabra));
     strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
-  
+
     //tamaño cadena
     size_t tamano = strlen(palabra);
     size_t tamano_tra = strlen(traduccion);
@@ -27,28 +53,24 @@ string reemplazar(const string & linea) {
     string mystring2(traduccion, tamano_tra);
 
     //traducir palabras
-    size_t posicion = resultado.find(palabra);
+        posicion = resultado.find(palabra);
     while (posicion != string::npos) {
       resultado.replace(posicion, tamano, traduccion);
       posicion = resultado.find(palabra, posicion + tamano);
     }
 
-    //cambiar llaves por inicio y fin
-    posicion = resultado.find("{");
-    while (posicion != string::npos) {
-      resultado.replace(posicion, 1, " Inicio");
-      posicion = resultado.find("{", posicion + 6);
-    }
-    posicion = resultado.find("}");
-    while (posicion != string::npos) {
-      resultado.replace(posicion, 1, " Fin");
-      posicion = resultado.find("}", posicion + 3);
-    }
-    fread( & Traducir, sizeof(traducir), 1, archivo);
+
+
+    fread(&Traducir, sizeof(traducir), 1, archivo);
   } while (!feof(archivo));
   fclose(archivo);
-  return resultado;
+
+    return resultado;
+
 }
+
+
+
 int main() {
   //Crear();
   string texto;
@@ -65,8 +87,11 @@ int main() {
   }
 
   // Imprimir el texto
+  system("cls");
   cout << "Texto ingresado:\n" << texto << endl;
   string texto_reemplazado;
   texto_reemplazado = reemplazar(texto);
   cout << texto_reemplazado << endl;
+
+  return 0;
 }
