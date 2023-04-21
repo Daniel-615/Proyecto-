@@ -19,7 +19,7 @@ string reemplazar(const string& linea) {
   do {
         //primero las llaves para que no de ningun error
         size_t posicion;
-        string palabras_control[] = {"for","while", "if", "switch", "else"}; // agregar aquí todas las estructuras de control
+        string palabras_control[] = {"for","while", "if", "switch", "else"}; // agregar aquÃ­ todas las estructuras de control
         //const string palabras_control[]= {};
         for (auto& palabra : palabras_control) {
         // buscar la palabra de control
@@ -46,7 +46,7 @@ string reemplazar(const string& linea) {
     strncpy(palabra, Traducir.palabra, sizeof(palabra));
     strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
 
-    //tamaño cadena
+    //tamaÃ±o cadena
     size_t tamano = strlen(palabra);
     size_t tamano_tra = strlen(traduccion);
     //char a string
@@ -69,9 +69,8 @@ string reemplazar(const string& linea) {
     return resultado;
 
 }
-int main() {
-  //Crear();
-  string texto;
+void traductor(){
+         string texto;
   string linea;
   fflush(stdin);
   cout << "Ingresa tu texto multilinea y presiona ENTER. Para terminar, ingresa una linea vacia:" << endl;
@@ -86,14 +85,42 @@ int main() {
 
   // Imprimir el texto
   system("cls");
-cout<<"______________________________________"<<endl;
+cout<<"______________"<<endl;
   cout << "Texto ingresado:\n" << texto << endl;
   string texto_reemplazado;
   texto_reemplazado = reemplazar(texto);
 
-  cout<<"______________________________________"<<endl;
+  cout<<"______________"<<endl;
   cout << "\nTraduccion:\n" <<endl;
   cout << texto_reemplazado << endl;
+};
 
-  return 0;
+
+int main() {
+  int opcion_switch=0;
+  cout<<"Ingrese una opcion 1. leer 2. crear 3. actualizar 4. borrar 5. Traduccion";
+  cin>>opcion_switch;
+  switch(opcion_switch){
+    case 1:
+        leer();
+        break;
+    case 2:
+        Crear();
+        break;
+    case 3:
+        leer();
+        actualizar();
+        break;
+    case 4:
+        leer();
+        borrar();
+        break;
+    case 5:
+        traductor();
+        break;
+    default:
+        cout<<"Esa opcion no es valida"<<endl;
+        break;
+
+  }
 }
