@@ -20,7 +20,7 @@ string reemplazar(const string & linea) {
   do {
     //primero las llaves para que no de ningun error
     size_t posicion;
-    string palabras_control[] = {"for","while","if","switch","else","do,"}; // agregar aquÃ­ todas las estructuras de control
+    string palabras_control[] = {"for","while","if","switch","else"}; // agregar aquí todas las estructuras de control
     //const string palabras_control[]= {};
     for (auto & palabra: palabras_control) {
       // buscar la palabra de control
@@ -47,7 +47,7 @@ string reemplazar(const string & linea) {
     strncpy(palabra, Traducir.palabra, sizeof(palabra));
     strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
 
-    //tamaÃ±o cadena
+    //tamaño cadena
     size_t tamano = strlen(palabra);
     size_t tamano_tra = strlen(traduccion);
     //char a string
@@ -97,32 +97,28 @@ int main() {
   int opcion_switch = 0;
   char r;
   do{
-  cout << "_____________________________" << endl;
+  cout << "________________________________________________________________________________" << endl;
   cout << "\tIngrese una opcion 1. leer 2. crear 3. actualizar 4. borrar 5. Traduccion" << endl;
-  cout << "_____________________________" << endl;
+  cout << "________________________________________________________________________________" << endl;
   cout << "opcion: ";
   cin >> opcion_switch;
   switch (opcion_switch) {
   case 1:
-    system("cls");
     leer();
     break;
   case 2:
-    system("cls");
-    leer();
+    Crear();
     system("pause");
     system("cls");
-    Crear();
+    leer();
     break;
   case 3:
-    system("cls");
     leer();
     system("pause");
     system("cls");
     actualizar();
     break;
   case 4:
-    system("cls");
     leer();
     system("pause");
     system("cls");
@@ -136,7 +132,16 @@ int main() {
     cout << "Esa opcion no es valida" << endl;
     break;
   }
-  cout<<"Â¿Desea continuar (s/n)?"<<endl;
+  cout<<"¿Desea continuar (s/n)?"<<endl;
   cin>>r;
+  system("cls");
   }while(r=='S'|r=='s');
+  cout<<"\tEl programa ha llegado a su fin!"<<endl;
+  cout<<"========================================================"<<endl;
+  cout<<"Hecho por: \n"<<endl;
+  cout<<"-Angel Suyan"<<endl;
+  cout<<"-Sebastian Holweger"<<endl;
+  cout<<"-Valeria Recinos"<<endl;
+  cout<<"-Jose Pablo Illescas"<<endl;
+  cout<<"-Ary Recinos"<<endl;
 }
