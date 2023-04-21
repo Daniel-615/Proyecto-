@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include "Proyecto Fase1.cpp"
 #include <cstring>
-
 using namespace std;
 
 string reemplazar(const string& linea) {
@@ -20,7 +19,7 @@ string reemplazar(const string& linea) {
   do {
         //primero las llaves para que no de ningun error
         size_t posicion;
-        string palabras_control[] = {"for","while", "if", "switch", "else"}; // agregar aquÃ­ todas las estructuras de control
+        string palabras_control[] = {"for","while", "if", "switch", "else"}; // agregar aquí todas las estructuras de control
         //const string palabras_control[]= {};
         for (auto& palabra : palabras_control) {
         // buscar la palabra de control
@@ -40,7 +39,6 @@ string reemplazar(const string& linea) {
             }
             posicion = resultado.find(palabra, pos_llave_ci);
             palabra="";
-
         }
     }
 
@@ -48,7 +46,7 @@ string reemplazar(const string& linea) {
     strncpy(palabra, Traducir.palabra, sizeof(palabra));
     strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
 
-    //tamaÃ±o cadena
+    //tamaño cadena
     size_t tamano = strlen(palabra);
     size_t tamano_tra = strlen(traduccion);
     //char a string
@@ -71,9 +69,6 @@ string reemplazar(const string& linea) {
     return resultado;
 
 }
-
-
-
 int main() {
   //Crear();
   string texto;
@@ -91,12 +86,13 @@ int main() {
 
   // Imprimir el texto
   system("cls");
+cout<<"______________________________________"<<endl;
   cout << "Texto ingresado:\n" << texto << endl;
   string texto_reemplazado;
   texto_reemplazado = reemplazar(texto);
 
-  cout<<"______________"<<endl;
-  cout << "\n\nTraduccion:\n" <<endl;
+  cout<<"______________________________________"<<endl;
+  cout << "\nTraduccion:\n" <<endl;
   cout << texto_reemplazado << endl;
 
   return 0;
