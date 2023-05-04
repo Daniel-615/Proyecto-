@@ -98,7 +98,7 @@ int main() {
   char r;
   do{
   cout << "________________________________________________________________________________" << endl;
-  cout << "\tIngrese una opcion 1. leer 2. crear 3. actualizar 4. borrar 5. Traduccion" << endl;
+  cout << "\tIngrese una opcion 1. leer 2. crear 3. actualizar 4. borrar 5. Traduccion 6. Salir" << endl;
   cout << "________________________________________________________________________________" << endl;
   cout << "opcion: ";
   cin >> opcion_switch;
