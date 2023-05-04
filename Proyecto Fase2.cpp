@@ -20,7 +20,7 @@ string reemplazar(const string & linea) {
   do {
     //primero las llaves para que no de ningun error
     size_t posicion;
-    string palabras_control[] = {"for","while","if","switch","else"}; // agregar aquí todas las estructuras de control
+    string palabras_control[] = {"for","while","if","switch","else"}; // agregar aquï¿½ todas las estructuras de control
     //const string palabras_control[]= {};
     for (auto & palabra: palabras_control) {
       // buscar la palabra de control
@@ -47,7 +47,7 @@ string reemplazar(const string & linea) {
     strncpy(palabra, Traducir.palabra, sizeof(palabra));
     strncpy(traduccion, Traducir.traduccion, sizeof(traduccion));
 
-    //tamaño cadena
+    //tamaï¿½o cadena
     size_t tamano = strlen(palabra);
     size_t tamano_tra = strlen(traduccion);
     //char a string
@@ -107,7 +107,7 @@ int main() {
     leer();
     break;
   case 2:
-    Crear();
+   // Crear();
     system("pause");
     system("cls");
     leer();
@@ -128,11 +128,22 @@ int main() {
     system("cls");
     traductor();
     break;
+    case 6:
+  cout<<"\tGracias Por usar el programa!"<<endl;
+  cout<<"========================================================"<<endl;
+  cout<<"Hecho por: \n"<<endl;
+  cout<<"-Angel Suyan"<<endl;
+  cout<<"-Sebastian Holweger"<<endl;
+  cout<<"-Valeria Recinos"<<endl;
+  cout<<"-Jose Pablo Illescas"<<endl;
+  cout<<"-Ary Recinos"<<endl;
+    return 0;
+    break;
   default:
     cout << "Esa opcion no es valida" << endl;
     break;
   }
-  cout<<"¿Desea continuar (s/n)?"<<endl;
+  cout<<"Desea continuar (s/n)?"<<endl;
   cin>>r;
   system("cls");
   }while(r=='S'|r=='s');
@@ -144,4 +155,4 @@ int main() {
   cout<<"-Valeria Recinos"<<endl;
   cout<<"-Jose Pablo Illescas"<<endl;
   cout<<"-Ary Recinos"<<endl;
-}
+} 

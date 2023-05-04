@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 const char *nombre_archivo= "traductor.dat";
 void Crear();
@@ -24,7 +25,6 @@ void Crear(){
         fflush(stdin);
         cout<<"Ingrese su respectiva funcionalidad: ";
         cin.getline(Traducir.funcionalidad,100);
-
 
         fwrite(&Traducir,sizeof(traducir),1,archivo);
         cout<<"Desea ingresar otra palabra(S/N)";
